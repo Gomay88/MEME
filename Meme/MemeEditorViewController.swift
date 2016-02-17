@@ -184,7 +184,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
             let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
             controller.completionWithItemsHandler = {(activity, success, items, error) in
                 controller.dismissViewControllerAnimated(true, completion: nil)
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.navigationController?.popToRootViewControllerAnimated(true)
                 self.showBottomToolbar()
                 if success {
                     self.save()
