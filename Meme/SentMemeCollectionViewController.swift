@@ -11,18 +11,18 @@ import UIKit
 class SentMemeCollectionViewController: UICollectionViewController {
 
     var memesArray = [Meme]()
-    var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     //MARK: View
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         memesArray = appDelegate.memes
         collectionView?.reloadData()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showDetailFromCollection") {
-            let memeDetailViewController: MemeDetailViewController = segue.destinationViewController as! MemeDetailViewController
-            memeDetailViewController.meme = memesArray[(collectionView?.indexPathsForSelectedItems()?.first?.row)!]
+            let memeDetailViewController: MemeDetailViewController = segue.destination as! MemeDetailViewController
+            memeDetailViewController.meme = memesArray[(collectionView?.indexPathsForSelectedItems?.first?.row)!]
         }
     }
 }
@@ -30,21 +30,21 @@ class SentMemeCollectionViewController: UICollectionViewController {
 //MARK: Delegate
 extension SentMemeCollectionViewController {
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return memesArray.count
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("memeCollectionCell", forIndexPath: indexPath) as! SentCollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "memeCollectionCell", for: indexPath) as! SentCollectionViewCell
         cell.meme = memesArray[indexPath.row]
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("showDetailFromCollection", sender: self)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showDetailFromCollection", sender: self)
     }
 }

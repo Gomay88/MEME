@@ -17,24 +17,24 @@ class MemeDetailViewController: UIViewController {
     var index: Int!
     
     override func viewDidLoad() {
-        memeImage.contentMode = .ScaleAspectFit
+        memeImage.contentMode = .scaleAspectFit
         memeImage.image = meme.memeImage
     }
     
     @IBAction func didTapCancel(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func deletePhoto(sender: AnyObject) {
-        let memes = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
-        let indexPath = memes.indexOf({$0.memeImage == meme.memeImage})
-        
-        guard indexPath != nil else {
+        let memes = (UIApplication.shared.delegate as! AppDelegate).memes
+
+        guard let indexPath = memes.firstIndex(where: {$0.memeImage == meme.memeImage}) else {
             print("Not found")
             return
         }
-        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.removeAtIndex(indexPath!)
-        navigationController?.popToRootViewControllerAnimated(true)
+        
+        (UIApplication.shared.delegate as! AppDelegate).memes.remove(at: indexPath)
+        navigationController?.popToRootViewController(animated: true)
     }
     
 }

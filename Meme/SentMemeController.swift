@@ -12,6 +12,6 @@ import Foundation
 class SentMemeController: UITabBarController {
 
     @IBAction func didTapAdd(sender: AnyObject) {
-        performSegueWithIdentifier("showEditor", sender: self)
+        performSegue(withIdentifier: "showEditor", sender: self)
     }
 }
